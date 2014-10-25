@@ -12,15 +12,33 @@ class RequireManager{
      * 
      */
     public static function requireClass($className, $mode){
-        $mode = isInArray($mode, Configuration::$modes);
+        $mode = isInArray($mode, Configuration::$modes, false);
         if (!$mode){
             throw new Exception('This mode doesn`t exist in Configuration class');
         }
         
-        $className = isInArray($className, Configuration::$classes);
+        $className = isInArray($className, Configuration::$classes, true);
         if (!$className){
             throw new Exception('This class doesn`t exist in Configuration class');
         }
+
+        switch ($mode){
+            case 'include':
+                include(__DIR__ . "/../$className");
+                break;
+            case 'include_once':
+                include_once(__DIR__ . "/../$className");
+                break;
+            case 'require':
+                require(__DIR__ . "/../$className");
+                break;
+            case 'require_once':
+                require_once(__DIR__ . "/../$className");
+                break;
+        }
+        
+        /* uncomment for unit test */
+        //return $mode.'("__DIR__ . /../'.$className.'")';
     }
     
     /**

@@ -2,7 +2,7 @@
 
 class Configuration{
     public static $classes = [
-        "MainController" => "controllers/MainControler.php",
+        "MainController" => "controllers/MainController.php",
         "MainView" => "views/MainView.php"
     ];
     
